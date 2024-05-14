@@ -4,4 +4,5 @@
     android:shape="rectangle">
     <corners android:radius="14dp"/>
     <solid android:color="@color/color_E6E6E6"/>
+    <size android:height="@dimen/item_thumbnail_min" android:width="@dimen/item_thumbnail_min"/>
 </shape>
