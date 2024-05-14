@@ -1,7 +1,4 @@
-package com.ivy.imagearchive.ui.Search
-
-import android.os.Parcelable
-import java.io.Serializable
+package com.ivy.imagearchive.ui.search
 
 data class SearchItemData(
     val thumbnailUrl: String,
