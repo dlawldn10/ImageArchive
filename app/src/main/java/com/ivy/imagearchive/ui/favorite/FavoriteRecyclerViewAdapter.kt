@@ -26,7 +26,7 @@ class FavoriteRecyclerViewAdapter(
         fun bind(item: SearchItemData) {
 
             binding.apply {
-                itemDatetime.text = item.dateTime
+                itemDatetime.text = item.dateTimeFavorite
                 itemTitle.text = item.title
                 when (item.itemType){
                     ITEMTYPE_VCLIP -> itemIcon.setImageDrawable(activity.getDrawable(R.drawable.icon_video))

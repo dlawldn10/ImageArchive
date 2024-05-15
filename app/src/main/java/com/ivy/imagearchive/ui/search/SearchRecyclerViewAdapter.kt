@@ -25,7 +25,7 @@ class SearchRecyclerViewAdapter(
 
             binding.apply {
                 itemCategory.text = item.category
-                itemDatetime.text = item.dateTime
+                itemDatetime.text = item.dateTimeSearch
                 itemTitle.text = item.title
                 when (item.itemType){
                     ITEMTYPE_VCLIP -> {
