@@ -4,9 +4,13 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.ivy.imagearchive.constant.ITEMTYPE_VCLIP
+import com.ivy.imagearchive.constant.PATH_IMAGE
+import com.ivy.imagearchive.constant.PATH_VCLIP
 import com.ivy.imagearchive.remotesource.SearchRepository
 import com.ivy.imagearchive.remotesource.dataclass.SearchRequestData
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import retrofit2.http.Query
 import javax.inject.Inject
@@ -20,32 +24,63 @@ class SearchViewModel @Inject constructor(private val searchRepository: SearchRe
     var page = 1
     var query = ""
 
-    fun addSearchData(searchRequestData: SearchRequestData){
+    fun performSearch(searchRequestData: SearchRequestData){
+        updateQuery(searchRequestData.query)
+        imageData.clear()
+        search(searchRequestData)
+    }
+
+    fun fetchNextPage(searchRequestData: SearchRequestData){
         addPage()
+        search(searchRequestData)
+    }
+
+    fun search(searchRequestData: SearchRequestData){
         viewModelScope.launch {
+            val tmpDataArray = arrayListOf<SearchItemData>()
+
+            // 이미지 검색
+            searchRequestData.path = PATH_IMAGE
             searchRepository.getSearchResult(searchRequestData).collect {
-                Log.d("", it.toString())
-                imageData.addAll(it)
-                _imageData.value = imageData
+                Log.d("search - image", it.toString())
+                tmpDataArray.addAll(it)
             }
+
+            // 동영상 검색
+            searchRequestData.path = PATH_VCLIP
+            searchRepository.getClipSearchResult(searchRequestData).collect { resultArray ->
+                Log.d("search - vclip", resultArray.toString())
+                val newMap = resultArray.map { SearchItemData(
+                    ITEMTYPE_VCLIP,
+                    it.title,
+                    "",
+                    it.thumbnailUrl,
+                    it.contentUrl,
+                    it.dateTime
+                ) }
+                tmpDataArray.addAll(newMap)
+            }
+
+            // 최신순 분류
+            sortByRecency(tmpDataArray)
+            updateSearchItemList()
+
         }
     }
 
-    fun replaceSearchData(searchRequestData: SearchRequestData){
-        updateQuery(searchRequestData.query)
-        viewModelScope.launch {
-            searchRepository.getSearchResult(searchRequestData).collect {
-                Log.d("", it.toString())
-                _imageData.value = it
-            }
-        }
+    private fun updateSearchItemList(){
+        _imageData.value = imageData
+    }
+
+    private fun sortByRecency(array: ArrayList<SearchItemData>){
+        imageData.addAll(array.sortedByDescending { it.dateTime })
     }
 
     private fun addPage(){
         page += 1
     }
 
-    fun updateQuery(newQuery: String){
+    private fun updateQuery(newQuery: String){
         query = newQuery
     }
 }

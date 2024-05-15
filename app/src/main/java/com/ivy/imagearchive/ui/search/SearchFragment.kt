@@ -1,6 +1,7 @@
 package com.ivy.imagearchive.ui.search
 
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ivy.imagearchive.MainActivity
+import com.ivy.imagearchive.constant.PATH_IMAGE
 import com.ivy.imagearchive.databinding.FragmentSearchBinding
 import com.ivy.imagearchive.remotesource.SearchRepository
 import com.ivy.imagearchive.remotesource.dataclass.SearchRequestData
@@ -35,19 +37,18 @@ class SearchFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val searchViewModel =
-            ViewModelProvider(this).get(SearchViewModel::class.java)
+        val searchViewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
 
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         // 검색 시
         binding.searchBar.setOnEditorActionListener { textView, actionId, keyEvent ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH){
+            if (keyEvent != null && keyEvent.action == KeyEvent.ACTION_DOWN && actionId == EditorInfo.IME_ACTION_SEARCH){
                 val newQuery = textView.text.toString()
-                searchViewModel.replaceSearchData(
+                searchViewModel.performSearch(
                     SearchRequestData(
-                        path = "image",
+                        path = PATH_IMAGE,
                         query = newQuery
                     )
                 )
@@ -66,9 +67,9 @@ class SearchFragment : Fragment() {
                     if (!binding.recyclerView.canScrollVertically(1)
                         && newState == RecyclerView.SCROLL_STATE_IDLE
                     ) {
-                        searchViewModel.addSearchData(
+                        searchViewModel.fetchNextPage(
                             SearchRequestData(
-                                path = "image",
+                                path = PATH_IMAGE,
                                 query = searchViewModel.query,
                                 page = searchViewModel.page
                             )

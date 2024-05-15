@@ -6,6 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.ivy.imagearchive.R
+import com.ivy.imagearchive.constant.ITEMTYPE_IMAGE
+import com.ivy.imagearchive.constant.ITEMTYPE_VCLIP
+import com.ivy.imagearchive.constant.PER_PAGE
 import com.ivy.imagearchive.databinding.ItemSearchBinding
 
 class SearchRecyclerViewAdapter(
@@ -21,9 +25,15 @@ class SearchRecyclerViewAdapter(
                 itemContent.text = item.contentUrl
                 itemDatetime.text = item.dateTime
                 itemTitle.text = item.title
+                when (item.itemType){
+                    ITEMTYPE_VCLIP -> itemIcon.setImageDrawable(activity.getDrawable(R.drawable.icon_video))
+                    ITEMTYPE_IMAGE -> itemIcon.setImageDrawable(activity.getDrawable(R.drawable.icon_image))
+                }
             }
 
             Glide.with(activity).load(item.thumbnailUrl).into(binding.itemThumbnailLayout.itemThumbnail)
+
+
         }
     }
 
@@ -39,9 +49,9 @@ class SearchRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        if (position % 10 == 9){
+        if (position % PER_PAGE == PER_PAGE - 1){
             holder.binding.itemFooterLayout.itemFooterLayout.visibility = View.VISIBLE
-            holder.binding.itemFooterLayout.pageNumber.text = (position/10 + 1).toString()
+            holder.binding.itemFooterLayout.pageNumber.text = (position/ PER_PAGE + 1).toString()
         }else{
             holder.binding.itemFooterLayout.itemFooterLayout.visibility = View.GONE
         }

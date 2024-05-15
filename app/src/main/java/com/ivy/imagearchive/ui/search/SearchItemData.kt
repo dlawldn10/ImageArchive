@@ -1,8 +1,11 @@
 package com.ivy.imagearchive.ui.search
 
 import com.google.gson.annotations.SerializedName
+import com.ivy.imagearchive.constant.ITEMTYPE_IMAGE
 
 data class SearchItemData(
+    val itemType: Int = ITEMTYPE_IMAGE,
+
     @SerializedName("display_sitename")
     val title: String,
 
