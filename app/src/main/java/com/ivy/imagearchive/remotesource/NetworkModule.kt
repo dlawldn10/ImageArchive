@@ -29,7 +29,7 @@ object NetworkModule {
     @Singleton
     fun providesRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://dapi.kakao.com/v2/search/image/")
+            .baseUrl("https://dapi.kakao.com/v2/search/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(okHttpClient)
             .build()

@@ -28,11 +28,14 @@
             android:src="@drawable/icon_search" />
 
         <EditText
+            android:id="@+id/search_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:text="검색"
             android:textSize="16sp"
+            android:inputType="text"
+            android:imeOptions="actionSearch"
             android:drawableEnd="@drawable/icon_delete"/>
     </LinearLayout>
 
