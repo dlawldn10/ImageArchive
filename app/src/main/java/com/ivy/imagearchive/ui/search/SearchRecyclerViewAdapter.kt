@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.ivy.imagearchive.MainApplication
 import com.ivy.imagearchive.R
 import com.ivy.imagearchive.constant.ITEMTYPE_IMAGE
 import com.ivy.imagearchive.constant.ITEMTYPE_VCLIP
@@ -55,6 +56,21 @@ class SearchRecyclerViewAdapter(
         }else{
             holder.binding.itemFooterLayout.itemFooterLayout.visibility = View.GONE
         }
+
+        holder.binding.itemThumbnailLayout.itemFavorite.itemFavorite.setOnCheckedChangeListener { button, isChecked ->
+            if (isChecked){
+                // 보관함에 넣기
+                (activity.application as MainApplication).prefs.addFavoriteItem(searchItemList[position])
+            }else{
+                // 보관함에서 삭제
+                (activity.application as MainApplication).prefs.deleteFavoriteItem(searchItemList[position])
+            }
+        }
+
+        holder.binding.itemThumbnailLayout.itemFavorite.itemFavorite.isChecked =
+            (activity.application as MainApplication).prefs.getFavoriteItemList().contains(searchItemList[position])
+
+
         return holder.bind(searchItemList[position])
     }
 

@@ -13,6 +13,7 @@ import com.google.android.material.tabs.TabLayout
 import com.ivy.imagearchive.databinding.ActivityMainBinding
 import com.ivy.imagearchive.ui.favorite.FavoriteFragment
 import com.ivy.imagearchive.ui.search.SearchFragment
+import com.ivy.imagearchive.ui.search.SearchItemData
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -26,6 +27,8 @@ class MainActivity : AppCompatActivity() {
 
     val searchFragment = SearchFragment()
     val favoriteFragment = FavoriteFragment()
+
+    val favoriteItemList = arrayListOf<SearchItemData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
