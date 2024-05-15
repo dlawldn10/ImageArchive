@@ -12,9 +12,14 @@ import javax.inject.Inject
 
 class SearchRepository @Inject constructor(private val server: RequestInterface) {
 
-    suspend fun getSearchResult() = flow<ArrayList<SearchItemData>> {
+    suspend fun getSearchResult(searchRequestData: SearchRequestData) = flow<ArrayList<SearchItemData>> {
         val response = server.getSearchResult(
-            "image", "KakaoAK 12e8b9317e72dbc97bc1610193cf7fd2", "이효리", "recency", 1, 10
+            searchRequestData.path,
+            searchRequestData.authorization,
+            searchRequestData.query,
+            searchRequestData.sort,
+            searchRequestData.page,
+            searchRequestData.perPage
         ).awaitResponse()
 
         if (response.code() == 200 && response.body() != null){

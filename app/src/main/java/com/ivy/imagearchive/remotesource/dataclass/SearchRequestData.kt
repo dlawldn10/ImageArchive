@@ -9,8 +9,8 @@ import retrofit2.http.Query
 data class SearchRequestData(
     @Path("path") val path: String = "image",
     @Header("Authorization") val authorization: String = "KakaoAK 12e8b9317e72dbc97bc1610193cf7fd2",
-    @Query("query") val query: String = "search",
+    @Query("query") val query: String = "",
     @Query("sort") val sort: String = "recency",
-    @Query("page") val page: Int = 0,
+    @Query("page") val page: Int = 1,
     @Query("size") val perPage: Int = 10
 )

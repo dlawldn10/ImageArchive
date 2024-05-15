@@ -8,13 +8,13 @@ import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.ivy.imagearchive.MainActivity
 import com.ivy.imagearchive.databinding.FragmentSearchBinding
 import com.ivy.imagearchive.remotesource.SearchRepository
+import com.ivy.imagearchive.remotesource.dataclass.SearchRequestData
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 
@@ -41,9 +41,16 @@ class SearchFragment : Fragment() {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        // 검색 시
         binding.searchBar.setOnEditorActionListener { textView, actionId, keyEvent ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH){
-                searchViewModel.search()
+                val newQuery = textView.text.toString()
+                searchViewModel.replaceSearchData(
+                    SearchRequestData(
+                        path = "image",
+                        query = newQuery
+                    )
+                )
             }
             return@setOnEditorActionListener false
         }
@@ -51,11 +58,30 @@ class SearchFragment : Fragment() {
         binding.recyclerView.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = SearchRecyclerViewAdapter(arrayListOf(), activity as MainActivity)
+
+            // 스크롤 맨끝에 도달 시
+            addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                    super.onScrollStateChanged(recyclerView, newState)
+                    if (!binding.recyclerView.canScrollVertically(1)
+                        && newState == RecyclerView.SCROLL_STATE_IDLE
+                    ) {
+                        searchViewModel.addSearchData(
+                            SearchRequestData(
+                                path = "image",
+                                query = searchViewModel.query,
+                                page = searchViewModel.page
+                            )
+                        )
+                    }
+                }
+            })
         }
 
-        searchViewModel.imageData.observe(viewLifecycleOwner, Observer {
+        searchViewModel._imageData.observe(viewLifecycleOwner, Observer {
             (binding.recyclerView.adapter as SearchRecyclerViewAdapter).setItemList(it)
         })
+
 
         return root
     }
