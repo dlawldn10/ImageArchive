@@ -28,8 +28,6 @@ class MainActivity : AppCompatActivity() {
     val searchFragment = SearchFragment()
     val favoriteFragment = FavoriteFragment()
 
-    val favoriteItemList = arrayListOf<SearchItemData>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

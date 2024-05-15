@@ -6,7 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.ivy.imagearchive.MainActivity
+import com.ivy.imagearchive.MainApplication
 import com.ivy.imagearchive.databinding.FragmentFavoriteBinding
+import com.ivy.imagearchive.ui.search.SearchRecyclerViewAdapter
 
 class FavoriteFragment : Fragment() {
 
@@ -26,6 +29,10 @@ class FavoriteFragment : Fragment() {
 
         _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
         val root: View = binding.root
+
+        binding.recyclerView.apply {
+            adapter = FavoriteRecyclerViewAdapter((activity?.application as MainApplication).prefs.getFavoriteItemList(), activity as MainActivity)
+        }
 
         return root
     }

@@ -28,11 +28,12 @@ class SearchViewModel @Inject constructor(private val searchRepository: SearchRe
         updateQuery(searchRequestData.query)
         imageData.clear()
         search(searchRequestData)
+        addPage()
     }
 
     fun fetchNextPage(searchRequestData: SearchRequestData){
-        addPage()
         search(searchRequestData)
+        addPage()
     }
 
     fun search(searchRequestData: SearchRequestData){
@@ -61,6 +62,7 @@ class SearchViewModel @Inject constructor(private val searchRepository: SearchRe
                 tmpDataArray.addAll(newMap)
             }
 
+            Log.d("search - this page", tmpDataArray.toString())
             // 최신순 분류
             sortByRecency(tmpDataArray)
             updateSearchItemList()
@@ -70,6 +72,7 @@ class SearchViewModel @Inject constructor(private val searchRepository: SearchRe
 
     private fun updateSearchItemList(){
         _imageData.value = imageData
+        Log.d("search - all", imageData.toString())
     }
 
     private fun sortByRecency(array: ArrayList<SearchItemData>){
