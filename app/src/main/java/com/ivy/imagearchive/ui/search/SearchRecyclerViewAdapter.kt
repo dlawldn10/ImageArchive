@@ -1,11 +1,13 @@
 package com.ivy.imagearchive.ui.search
 
 import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.ivy.imagearchive.ItemDetailActivity
 import com.ivy.imagearchive.MainApplication
 import com.ivy.imagearchive.R
 import com.ivy.imagearchive.constant.ITEMTYPE_IMAGE
@@ -23,12 +25,17 @@ class SearchRecyclerViewAdapter(
 
             binding.apply {
                 itemCategory.text = item.category
-                itemContent.text = item.contentUrl
                 itemDatetime.text = item.dateTime
                 itemTitle.text = item.title
                 when (item.itemType){
-                    ITEMTYPE_VCLIP -> itemIcon.setImageDrawable(activity.getDrawable(R.drawable.icon_video))
-                    ITEMTYPE_IMAGE -> itemIcon.setImageDrawable(activity.getDrawable(R.drawable.icon_image))
+                    ITEMTYPE_VCLIP -> {
+                        itemIcon.setImageDrawable(activity.getDrawable(R.drawable.icon_video))
+                        itemContent.text = item.contentUrl
+                    }
+                    ITEMTYPE_IMAGE -> {
+                        itemIcon.setImageDrawable(activity.getDrawable(R.drawable.icon_image))
+                        itemContent.text = item.docUrl
+                    }
                 }
             }
 
@@ -50,6 +57,12 @@ class SearchRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.itemView.setOnClickListener {
+            val intent = Intent(activity, ItemDetailActivity::class.java)
+            intent.putExtra("selectedItem", searchItemList[position])
+            activity.startActivity(intent)
+        }
+
         if (position % PER_PAGE == PER_PAGE - 1){
             holder.binding.itemFooterLayout.itemFooterLayout.visibility = View.VISIBLE
             holder.binding.itemFooterLayout.pageNumber.text = (position/ PER_PAGE + 1).toString()

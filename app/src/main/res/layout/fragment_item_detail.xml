@@ -18,4 +18,16 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/clip_play"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:padding="100dp"
+        app:layout_constraintBottom_toBottomOf="@+id/detail_image"
+        app:layout_constraintLeft_toLeftOf="@+id/detail_image"
+        app:layout_constraintRight_toRightOf="@+id/detail_image"
+        app:layout_constraintTop_toTopOf="@+id/detail_image"
+        app:srcCompat="@drawable/icon_video" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -57,6 +57,7 @@ class SearchViewModel @Inject constructor(private val searchRepository: SearchRe
                     "",
                     it.thumbnailUrl,
                     it.contentUrl,
+                    "",
                     it.dateTime
                 ) }
                 tmpDataArray.addAll(newMap)

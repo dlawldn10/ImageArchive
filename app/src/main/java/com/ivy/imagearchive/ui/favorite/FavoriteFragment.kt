@@ -9,7 +9,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.ivy.imagearchive.MainActivity
 import com.ivy.imagearchive.MainApplication
 import com.ivy.imagearchive.databinding.FragmentFavoriteBinding
-import com.ivy.imagearchive.ui.search.SearchRecyclerViewAdapter
 
 class FavoriteFragment : Fragment() {
 
@@ -18,6 +17,11 @@ class FavoriteFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+
+    override fun onResume() {
+        super.onResume()
+        binding.recyclerView.adapter?.notifyDataSetChanged()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
