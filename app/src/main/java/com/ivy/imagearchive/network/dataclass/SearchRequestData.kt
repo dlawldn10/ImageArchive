@@ -1,7 +1,5 @@
-package com.ivy.imagearchive.remotesource.dataclass
+package com.ivy.imagearchive.network.dataclass
 
-import com.google.gson.annotations.SerializedName
-import com.ivy.imagearchive.ui.search.SearchItemData
 import retrofit2.http.Header
 import retrofit2.http.Path
 import retrofit2.http.Query

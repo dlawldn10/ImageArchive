@@ -1,7 +1,7 @@
-package com.ivy.imagearchive.remotesource
+package com.ivy.imagearchive.network
 
-import com.ivy.imagearchive.remotesource.dataclass.SearchClipItemData
-import com.ivy.imagearchive.remotesource.dataclass.SearchRequestData
+import com.ivy.imagearchive.network.dataclass.SearchClipItemData
+import com.ivy.imagearchive.network.dataclass.SearchRequestData
 import com.ivy.imagearchive.ui.search.SearchItemData
 import kotlinx.coroutines.flow.flow
 import retrofit2.awaitResponse

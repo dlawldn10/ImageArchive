@@ -1,7 +1,7 @@
-package com.ivy.imagearchive.remotesource
+package com.ivy.imagearchive.network
 
-import com.ivy.imagearchive.remotesource.dataclass.SearchClipResponseData
-import com.ivy.imagearchive.remotesource.dataclass.SearchResponseData
+import com.ivy.imagearchive.network.dataclass.SearchClipResponseData
+import com.ivy.imagearchive.network.dataclass.SearchResponseData
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Header

@@ -1,4 +1,4 @@
-package com.ivy.imagearchive.remotesource.dataclass
+package com.ivy.imagearchive.network.dataclass
 
 import com.google.gson.annotations.SerializedName
 

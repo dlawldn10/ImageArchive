@@ -7,12 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.ivy.imagearchive.constant.ITEMTYPE_VCLIP
 import com.ivy.imagearchive.constant.PATH_IMAGE
 import com.ivy.imagearchive.constant.PATH_VCLIP
-import com.ivy.imagearchive.remotesource.SearchRepository
-import com.ivy.imagearchive.remotesource.dataclass.SearchRequestData
+import com.ivy.imagearchive.network.SearchRepository
+import com.ivy.imagearchive.network.dataclass.SearchRequestData
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import retrofit2.http.Query
 import javax.inject.Inject
 
 @HiltViewModel
