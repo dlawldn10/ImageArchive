@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ivy.imagearchive.ItemDetailActivity
+import com.ivy.imagearchive.MainActivity
 import com.ivy.imagearchive.MainApplication
 import com.ivy.imagearchive.R
 import com.ivy.imagearchive.constant.ITEMTYPE_IMAGE
@@ -17,7 +18,7 @@ import com.ivy.imagearchive.databinding.ItemSearchBinding
 
 class SearchRecyclerViewAdapter(
     private var searchItemList: ArrayList<SearchItemData>,
-    private val activity: Activity
+    private val activity: MainActivity
 ): RecyclerView.Adapter<SearchRecyclerViewAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: ItemSearchBinding, val activity: Activity) : RecyclerView.ViewHolder(binding.root) {
@@ -60,7 +61,8 @@ class SearchRecyclerViewAdapter(
         holder.itemView.setOnClickListener {
             val intent = Intent(activity, ItemDetailActivity::class.java)
             intent.putExtra("selectedItem", searchItemList[position])
-            activity.startActivity(intent)
+//            activity.startActivity(intent)
+            activity.searchItemDetailLauncher.launch(intent)
         }
 
         if (position % PER_PAGE == PER_PAGE - 1){

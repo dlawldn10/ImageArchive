@@ -1,6 +1,9 @@
 package com.ivy.imagearchive
 
+import android.content.Intent
 import android.os.Bundle
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -27,6 +30,16 @@ class MainActivity : AppCompatActivity() {
 
     val searchFragment = SearchFragment()
     val favoriteFragment = FavoriteFragment()
+
+    var searchItemDetailLauncher: ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            searchFragment.binding.recyclerView.adapter?.notifyDataSetChanged()
+        }
+
+    var favoriteItemDetailLauncher: ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            favoriteFragment.binding.recyclerView.adapter?.notifyDataSetChanged()
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

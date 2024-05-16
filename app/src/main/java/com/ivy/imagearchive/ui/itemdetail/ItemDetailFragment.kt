@@ -44,7 +44,10 @@ class ItemDetailFragment : Fragment() {
 
             }
             ITEMTYPE_IMAGE -> {
-                Glide.with((activity as ItemDetailActivity)).load(selectedItem.contentUrl).into(binding.detailImage)
+                Glide.with((activity as ItemDetailActivity))
+                    .load(selectedItem.contentUrl)
+                    .into(binding.detailImage)
+                    .onLoadFailed((activity as ItemDetailActivity).getDrawable(android.R.drawable.ic_dialog_alert))
                 binding.clipPlay.visibility = View.GONE
             }
         }

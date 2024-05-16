@@ -8,3 +8,7 @@ const val ITEMTYPE_VCLIP = 1
 
 const val sharedPreferencesKey = "shared_pref"
 const val favoriteItemsKey = "favorite_pref"
+
+
+const val FRAG_SEARCH = "fragment_search"
+const val FRAG_FAVORITE = "fragment_favorite"
