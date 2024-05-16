@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.EditorInfo
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -54,6 +55,28 @@ class SearchFragment : Fragment() {
                 )
             }
             return@setOnEditorActionListener false
+        }
+
+        binding.searchIcon.setOnClickListener {
+            val newQuery = binding.searchBar.text.toString()
+            searchViewModel.performSearch(
+                SearchRequestData(
+                    path = PATH_IMAGE,
+                    query = newQuery
+                )
+            )
+        }
+
+        binding.searchBar.addTextChangedListener {
+            if (binding.searchBar.text.length > 0){
+                binding.searchDelete.visibility = View.VISIBLE
+            }else{
+                binding.searchDelete.visibility = View.GONE
+            }
+        }
+
+        binding.searchDelete.setOnClickListener {
+            binding.searchBar.text.clear()
         }
 
         binding.recyclerView.apply {
