@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.ivy.imagearchive.constant.ITEMTYPE_VCLIP
 import com.ivy.imagearchive.constant.PATH_IMAGE
 import com.ivy.imagearchive.constant.PATH_VCLIP
-import com.ivy.imagearchive.network.SearchRepository
+import com.ivy.imagearchive.repository.SearchRepository
 import com.ivy.imagearchive.network.dataclass.SearchRequestData
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch

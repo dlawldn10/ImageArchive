@@ -8,8 +8,15 @@ import com.google.gson.reflect.TypeToken
 import com.ivy.imagearchive.constant.favoriteItemsKey
 import com.ivy.imagearchive.constant.sharedPreferencesKey
 import com.ivy.imagearchive.ui.search.SearchItemData
+import dagger.Module
+import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
+import javax.inject.Inject
 
-class PreferenceUtil(context: Context) {
+
+class PreferenceUtil @Inject constructor(@ApplicationContext context: Context) {
 
     private val prefs: SharedPreferences =
         context.getSharedPreferences(sharedPreferencesKey, Context.MODE_PRIVATE)

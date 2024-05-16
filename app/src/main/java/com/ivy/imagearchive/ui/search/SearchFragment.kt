@@ -15,31 +15,28 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ivy.imagearchive.MainActivity
 import com.ivy.imagearchive.constant.PATH_IMAGE
 import com.ivy.imagearchive.databinding.FragmentSearchBinding
-import com.ivy.imagearchive.network.SearchRepository
+import com.ivy.imagearchive.repository.SearchRepository
 import com.ivy.imagearchive.network.dataclass.SearchRequestData
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
-
 
 @AndroidEntryPoint
 class SearchFragment : Fragment() {
 
     private var _binding: FragmentSearchBinding? = null
 
-    @Inject
-    lateinit var searchRepository: SearchRepository
-
     // This property is only valid between onCreateView and
     // onDestroyView.
     val binding get() = _binding!!
 
-    val searchViewModel by lazy { ViewModelProvider(this).get(SearchViewModel::class.java) }
+    lateinit var searchViewModel : SearchViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        searchViewModel = ViewModelProvider(this).get(SearchViewModel::class.java)
 
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         val root: View = binding.root

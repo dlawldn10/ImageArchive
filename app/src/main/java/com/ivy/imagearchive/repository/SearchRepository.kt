@@ -1,5 +1,6 @@
-package com.ivy.imagearchive.network
+package com.ivy.imagearchive.repository
 
+import com.ivy.imagearchive.network.RequestInterface
 import com.ivy.imagearchive.network.dataclass.SearchClipItemData
 import com.ivy.imagearchive.network.dataclass.SearchRequestData
 import com.ivy.imagearchive.ui.search.SearchItemData

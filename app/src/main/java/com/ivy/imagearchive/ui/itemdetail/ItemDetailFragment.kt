@@ -7,12 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.ivy.imagearchive.ItemDetailActivity
 import com.ivy.imagearchive.R
 import com.ivy.imagearchive.constant.ITEMTYPE_IMAGE
 import com.ivy.imagearchive.constant.ITEMTYPE_VCLIP
 import com.ivy.imagearchive.databinding.FragmentItemDetailBinding
+import com.ivy.imagearchive.ui.search.SearchViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
 class ItemDetailFragment : Fragment() {
 

@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.commit
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
@@ -19,17 +20,24 @@ import com.ivy.imagearchive.constant.ITEMTYPE_VCLIP
 import com.ivy.imagearchive.databinding.ActivityItemDetailBinding
 import com.ivy.imagearchive.databinding.ActivityMainBinding
 import com.ivy.imagearchive.ui.itemdetail.ItemDetailFragment
+import com.ivy.imagearchive.ui.itemdetail.ItemDetailViewModel
 import com.ivy.imagearchive.ui.search.SearchItemData
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ItemDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityItemDetailBinding
 
     lateinit var selectedItem: SearchItemData
 
+    lateinit var itemDetailViewModel: ItemDetailViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        itemDetailViewModel = ViewModelProvider(this).get(ItemDetailViewModel::class.java)
 
         if (intent.hasExtra(INTENT_SELECTED_ITEM)){
             selectedItem = intent.getSerializableExtra(INTENT_SELECTED_ITEM) as SearchItemData
@@ -52,17 +60,10 @@ class ItemDetailActivity : AppCompatActivity() {
 
         binding.appbarTitle.text = selectedItem.title
 
-        val application: MainApplication = application as MainApplication
         binding.detailFavorite.apply {
-            isChecked = application.prefs.getFavoriteItemList().contains(selectedItem)
+            isChecked = itemDetailViewModel.getIsFavorite(selectedItem)
             setOnCheckedChangeListener { button, isChecked ->
-                if (isChecked){
-                    // 보관함에 넣기
-                    application.prefs.addFavoriteItem(selectedItem)
-                }else{
-                    // 보관함에서 삭제
-                    application.prefs.deleteFavoriteItem(selectedItem)
-                }
+                itemDetailViewModel.setIsFavorite(selectedItem, isChecked)
             }
         }
     }
