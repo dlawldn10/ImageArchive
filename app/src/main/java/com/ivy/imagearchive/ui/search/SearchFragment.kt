@@ -115,6 +115,9 @@ class SearchFragment : Fragment() {
 
         searchViewModel._imageData.observe(viewLifecycleOwner, Observer {
             (binding.recyclerView.adapter as SearchRecyclerViewAdapter).setItemList(it)
+            if (searchViewModel._imageData.value?.size == 0){
+                Toast.makeText(context, "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show()
+            }
         })
 
 
