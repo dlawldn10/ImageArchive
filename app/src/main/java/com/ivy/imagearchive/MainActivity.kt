@@ -32,12 +32,12 @@ class MainActivity : AppCompatActivity() {
     val favoriteFragment = FavoriteFragment()
 
     var searchItemDetailLauncher: ActivityResultLauncher<Intent> =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             searchFragment.binding.recyclerView.adapter?.notifyDataSetChanged()
         }
 
     var favoriteItemDetailLauncher: ActivityResultLauncher<Intent> =
-        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             favoriteFragment.binding.recyclerView.adapter?.notifyDataSetChanged()
         }
 
