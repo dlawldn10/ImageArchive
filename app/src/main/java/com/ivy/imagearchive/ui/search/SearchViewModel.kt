@@ -20,7 +20,13 @@ class SearchViewModel @Inject constructor(private val searchRepository: SearchRe
     val imageData = ArrayList<SearchItemData>()
 
     var page = 1
-    var query = ""
+
+    var query = ""  // 검색어 갱신
+    val _query = MutableLiveData<String>()  // 타이핑 감지
+
+    fun typeQuery(newQuery: String){
+        _query.value = newQuery
+    }
 
     fun performSearch(searchRequestData: SearchRequestData){
         updateQuery(searchRequestData.query)

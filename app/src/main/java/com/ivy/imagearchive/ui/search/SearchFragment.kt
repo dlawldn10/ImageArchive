@@ -44,6 +44,14 @@ class SearchFragment : Fragment() {
         _binding = FragmentSearchBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
+        searchViewModel._query.observe(viewLifecycleOwner, Observer {
+            if (it.isNotEmpty()){
+                binding.searchDelete.visibility = View.VISIBLE
+            }else{
+                binding.searchDelete.visibility = View.GONE
+            }
+        })
+
         // 검색 시
         binding.searchBar.setOnEditorActionListener { textView, actionId, keyEvent ->
             if (keyEvent != null && keyEvent.action == KeyEvent.ACTION_DOWN && actionId == EditorInfo.IME_ACTION_SEARCH){
@@ -69,11 +77,7 @@ class SearchFragment : Fragment() {
         }
 
         binding.searchBar.addTextChangedListener {
-            if (binding.searchBar.text.length > 0){
-                binding.searchDelete.visibility = View.VISIBLE
-            }else{
-                binding.searchDelete.visibility = View.GONE
-            }
+            searchViewModel.typeQuery(binding.searchBar.text.toString())
         }
 
         binding.searchDelete.setOnClickListener {

@@ -12,3 +12,5 @@ const val favoriteItemsKey = "favorite_pref"
 
 const val FRAG_SEARCH = "fragment_search"
 const val FRAG_FAVORITE = "fragment_favorite"
+
+const val INTENT_SELECTED_ITEM = "selectedItem"

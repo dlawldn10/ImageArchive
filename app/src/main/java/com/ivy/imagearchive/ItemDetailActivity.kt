@@ -13,6 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.tabs.TabLayout
+import com.ivy.imagearchive.constant.INTENT_SELECTED_ITEM
 import com.ivy.imagearchive.constant.ITEMTYPE_IMAGE
 import com.ivy.imagearchive.constant.ITEMTYPE_VCLIP
 import com.ivy.imagearchive.databinding.ActivityItemDetailBinding
@@ -30,8 +31,8 @@ class ItemDetailActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if (intent.hasExtra("selectedItem")){
-            selectedItem = intent.getSerializableExtra("selectedItem") as SearchItemData
+        if (intent.hasExtra(INTENT_SELECTED_ITEM)){
+            selectedItem = intent.getSerializableExtra(INTENT_SELECTED_ITEM) as SearchItemData
         }
 
         binding = ActivityItemDetailBinding.inflate(layoutInflater)
