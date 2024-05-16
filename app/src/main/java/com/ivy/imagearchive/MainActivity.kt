@@ -31,6 +31,8 @@ class MainActivity : AppCompatActivity() {
     val searchFragment = SearchFragment()
     val favoriteFragment = FavoriteFragment()
 
+    var recentQuery = ""
+
     var searchItemDetailLauncher: ActivityResultLauncher<Intent> =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
             searchFragment.binding.recyclerView.adapter?.notifyDataSetChanged()
@@ -50,8 +52,13 @@ class MainActivity : AppCompatActivity() {
         binding.tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 when(tab?.position){
-                    searchTabPosition -> replaceFragment(searchFragment)
-                    favoriteTabPosition -> replaceFragment(favoriteFragment)
+                    searchTabPosition -> {
+                        replaceFragment(searchFragment)
+                    }
+                    favoriteTabPosition -> {
+                        recentQuery = searchFragment.searchViewModel.query
+                        replaceFragment(favoriteFragment)
+                    }
                 }
             }
 

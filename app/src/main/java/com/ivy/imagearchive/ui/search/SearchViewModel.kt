@@ -1,6 +1,8 @@
 package com.ivy.imagearchive.ui.search
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -10,6 +12,7 @@ import com.ivy.imagearchive.constant.PATH_VCLIP
 import com.ivy.imagearchive.repository.SearchRepository
 import com.ivy.imagearchive.network.dataclass.SearchRequestData
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,7 +20,7 @@ import javax.inject.Inject
 class SearchViewModel @Inject constructor(private val searchRepository: SearchRepository) : ViewModel() {
 
     val _imageData = MutableLiveData<ArrayList<SearchItemData>>()
-    val imageData = ArrayList<SearchItemData>()
+    var imageData = ArrayList<SearchItemData>()
 
     var page = 1
 
